@@ -5,6 +5,7 @@ import (
 	"fmt"
 	//"container/list"
 	"github.com/PuerkitoBio/goquery"
+	"math"
 	"net/http"
 	"strings"
 )
@@ -35,23 +36,28 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 
 	lines := doc.Find("#team-matchplan-table tbody tr")
 	lines.Each(func(i int, s *goquery.Selection) {
-		if i == 0 { // headline
+		fmt.Println(math.Mod(float64(i), 3))
+
+		if math.Mod(float64(i), 3) == 0 { // headline
 			headline = strings.Trim(strings.Split(s.Find("td").Text(), "|")[0], " ")
+			fmt.Println(headline)
 		}
 
-		if i == 2 { // team names
+		if math.Mod(float64(i), 2) == 0 { // team names
 			m := Match{
 				Start_at: headline,
 				Team_one: s.Find("td.column-club .club-name").First().Text(),
 				Team_two: s.Find("td.column-club .club-name").Last().Text(),
 			}
+			fmt.Println(m)
 			match_list.Matches = append(match_list.Matches, m)
 		}
 	})
-	fmt.Println(match_list)
+	//fmt.Println(match_list)
 
 	resp, _ := json.MarshalIndent(match_list, "", "  ")
 
+	w.Header().Set("charset", "utf-8")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(resp))
