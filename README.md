@@ -16,7 +16,7 @@ LGPLv3. (You can use it in commercial projects as you like, but improvements/bug
 - [x] create the routes and handlers
 - [x] receive the url get parameter
 - [x] fetch the given url
-- [ ] grab the information (start_at, home team, guest team)
+- [x] grab the information (start_at, home team, guest team)
 - [x] return the list as json string
-- [ ] solve the encoding issue
-- [ ] find the owner team of the list
+- [x] find the owner team of the list
+- [ ] tests
