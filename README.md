@@ -86,15 +86,3 @@ Returns something like this:
 
 # License
 LGPLv3. (You can use it in commercial projects as you like, but improvements/bugfixes must flow back to this lib.)
-
-# ToDos:
-
-- [x] create the service
-- [x] create the routes and handlers
-- [x] receive the url get parameter
-- [x] fetch the given url
-- [x] grab the information (start_at, home team, guest team)
-- [x] return the list as json string
-- [x] find the owner team of the list 
-- [ ] some refactoring 
-- [ ] tests
