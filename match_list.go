@@ -10,18 +10,20 @@ import (
 
 type Match struct {
 	Start_at string `json:"start_at"`
-	Team_one string `json:"team_one"`
-	Team_two string `json:"team_two"`
+	Team_one string `json:"home"`
+	Team_two string `json:"guest"`
 }
 
 type MatchList struct {
-	Matches []Match `json:"match"`
+	Team_name string  `json:"team_name"`
+	Matches   []Match `json:"matches"`
 }
 
 func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Query().Get("url")
 
 	doc, err := goquery.NewDocument(url)
+	//fmt.Println(doc)
 	if err != nil {
 		//log.Fatal(err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -30,7 +32,7 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var headline string
-	var match_list MatchList
+	var match_list MatchList = MatchList{Team_name: doc.Find("h2").First().Text()}
 	var next_match_time_row_index = 0
 	var next_team_row_index = 2
 
