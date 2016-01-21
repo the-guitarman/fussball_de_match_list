@@ -23,7 +23,6 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Query().Get("url")
 
 	doc, err := goquery.NewDocument(url)
-	//fmt.Println(doc)
 	if err != nil {
 		//log.Fatal(err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -32,7 +31,7 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var headline string
-	var match_list MatchList = MatchList{Team_name: doc.Find("h2").First().Text()}
+	var match_list MatchList = MatchList{Team_name: findTeamName(doc)}
 	var next_match_time_row_index = 0
 	var next_team_row_index = 2
 
@@ -62,4 +61,9 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(resp))
+}
+
+func findTeamName(d *goquery.Document) (n string) {
+	n = d.Find("h2").First().Text()
+	return
 }
