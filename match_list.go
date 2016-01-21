@@ -40,16 +40,18 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 
 		if math.Mod(float64(i), 3) == 0 { // headline
 			headline = strings.Trim(strings.Split(s.Find("td").Text(), "|")[0], " ")
-			fmt.Println(headline)
+			//fmt.Println(headline)
+			return
 		}
 
 		if math.Mod(float64(i), 2) == 0 { // team names
+			//fmt.Println(s.Text())
 			m := Match{
 				Start_at: headline,
 				Team_one: s.Find("td.column-club .club-name").First().Text(),
 				Team_two: s.Find("td.column-club .club-name").Last().Text(),
 			}
-			fmt.Println(m)
+			//fmt.Println(m)
 			match_list.Matches = append(match_list.Matches, m)
 		}
 	})
