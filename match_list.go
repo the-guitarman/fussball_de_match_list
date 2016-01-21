@@ -3,9 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	//"container/list"
 	"github.com/PuerkitoBio/goquery"
-	"math"
 	"net/http"
 	"strings"
 )
@@ -33,29 +31,28 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 
 	var headline string
 	var match_list MatchList
+	var next_match_time_row_index = 0
+	var next_team_row_index = 2
 
 	lines := doc.Find("#team-matchplan-table tbody tr")
 	lines.Each(func(i int, s *goquery.Selection) {
-		fmt.Println(math.Mod(float64(i), 3))
-
-		if math.Mod(float64(i), 3) == 0 { // headline
+		if i == next_match_time_row_index { // headline
 			headline = strings.Trim(strings.Split(s.Find("td").Text(), "|")[0], " ")
-			//fmt.Println(headline)
+			next_match_time_row_index += 3
 			return
 		}
 
-		if math.Mod(float64(i), 2) == 0 { // team names
-			//fmt.Println(s.Text())
+		if i == next_team_row_index { // team names
 			m := Match{
 				Start_at: headline,
 				Team_one: s.Find("td.column-club .club-name").First().Text(),
 				Team_two: s.Find("td.column-club .club-name").Last().Text(),
 			}
-			//fmt.Println(m)
 			match_list.Matches = append(match_list.Matches, m)
+			next_team_row_index += 3
+			return
 		}
 	})
-	//fmt.Println(match_list)
 
 	resp, _ := json.MarshalIndent(match_list, "", "  ")
 
