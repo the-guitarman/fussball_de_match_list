@@ -1,7 +1,7 @@
 [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](http://github.com/syl20bnr/spacemacs)
 
-# fussball_de_match_list
-Microservice that parses a match list of a german soccer team from fussball.de
+# fussball.de Match List Parser
+This is a microservice which parses a match list of a german soccer team from fussball.de
 
 # Usage
 
