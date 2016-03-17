@@ -32,57 +32,73 @@ Returns something like this:
   "matches": [
     {
       "start_at": "Sonntag, 24.01.2016 - 11:00 Uhr",
+      "competition": "Kreisfreundschaftsspiele",
       "home": "SV Eiche Reichenbrand 2",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
       "start_at": "Samstag, 13.02.2016 - 15:00 Uhr",
+      "competition": "Kreisfreundschaftsspiele",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
       "guest": "SV 1990 Witzschdorf"
     },
     {
       "start_at": "Samstag, 27.02.2016 - 15:00 Uhr",
+      "competition": "Kreisfreundschaftsspiele",
       "home": "TV Oberfrohna",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
       "start_at": "Sonntag, 06.03.2016 - 14:00 Uhr",
+      "competition": "Kreisoberliga",
       "home": "VfL Chemnitz",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
       "start_at": "Sonntag, 13.03.2016 - 14:00 Uhr",
+      "competition": "Kreisoberliga",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
       "guest": "CSV Siegmar"
     },
     {
       "start_at": "Sonntag, 20.03.2016 - 10:30 Uhr",
+      "competition": "Kreisoberliga",
       "home": "BSC Rapid Chemnitz 2",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
       "start_at": "Sonntag, 03.04.2016 - 15:00 Uhr",
+      "competition": "Kreisoberliga",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
       "guest": "TSV IFA Chemnitz"
     },
     {
       "start_at": "Samstag, 09.04.2016 - 15:00 Uhr",
+      "competition": "Kreisoberliga",
       "home": "SG Handwerk Rabenstein 2",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
       "start_at": "Sonntag, 24.04.2016 - 15:00 Uhr",
+      "competition": "Kreisoberliga",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
       "guest": "SV Adorf"
     },
     {
       "start_at": "Sonntag, 01.05.2016 - 15:00 Uhr",
+      "competition": "Kreisoberliga",
       "home": "FSV Grün-Weiß Klaffenbach",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     }
   ]
 }
 ````
+
+"team_name" holds the name of the team to which this list belongs to. You can use it to determine wether a match is a home match or not.
+
+# ToDos
+
+- [ ] convert start_at to ISO8601
 
 # License
 LGPLv3. (You can use it in commercial projects as you like, but improvements/bugfixes must flow back to this lib.)
