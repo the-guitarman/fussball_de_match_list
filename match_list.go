@@ -6,6 +6,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"net/http"
 	"strings"
+	"time"
 )
 
 type Match struct {
@@ -50,7 +51,7 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 
 		if i == next_team_row_index { // team names
 			m := Match{
-				Start_at:    start_at,
+				Start_at:    parseDate(start_at),
 				Competition: competition,
 				Team_one:    s.Find("td.column-club .club-name").First().Text(),
 				Team_two:    s.Find("td.column-club .club-name").Last().Text(),
@@ -72,4 +73,32 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 func findTeamName(d *goquery.Document) (n string) {
 	n = d.Find("h2").First().Text()
 	return
+}
+
+func parseDate(date string) string {
+	loc, _ := time.LoadLocation("Europe/Berlin")
+	//errorCheck(err)
+	layout := "Sonntag, 02.01.2006 - 15:04 Uhr"
+	myTime, _ := time.ParseInLocation(layout, date, loc)
+	//errorCheck(err)
+	return myTime.Format("2006-01-02T15:04:05") + timeZone(myTime, loc)
+}
+
+func timeZone(myTime time.Time, loc *time.Location) string {
+	timeZone := "+01:00"
+	_, timeOffset := myTime.Zone()
+	zw, winterOffset := time.Date(myTime.Year(), 1, 1, 0, 0, 0, 0, loc).Zone()
+	zs, summerOffset := time.Date(myTime.Year(), 6, 1, 0, 0, 0, 0, loc).Zone()
+
+	if winterOffset > summerOffset {
+		winterOffset, summerOffset = summerOffset, winterOffset
+		zw, zs = zs, zw
+	}
+
+	if winterOffset != summerOffset { // the location has daylight saving
+		if timeOffset != winterOffset {
+			timeZone = "+02:00"
+		}
+	}
+	return timeZone
 }

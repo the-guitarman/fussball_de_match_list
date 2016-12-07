@@ -21,7 +21,7 @@ go build *.go
 Now you can use it in your browser:
 
 ````
-http://localhost:3333/match-list?url=http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1516/team-id/011MIF6PMK000000VTVG0001VTR8C1K7#!/section/stage`
+http://localhost:3333/match-list?url=http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1516/team-id/011MIF6PMK000000VTVG0001VTR8C1K7#!/section/stage
 ````
 
 Returns something like this:
@@ -31,63 +31,63 @@ Returns something like this:
   "team_name": "Spvgg. Blau-Weiß Chemnitz02",
   "matches": [
     {
-      "start_at": "Sonntag, 24.01.2016 - 11:00 Uhr",
+      "start_at": "2017-02-26T16:00:00+01:00",
       "competition": "Kreisfreundschaftsspiele",
-      "home": "SV Eiche Reichenbrand 2",
+      "home": "FSV Zschopau/​Krumhermersdorf",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
-      "start_at": "Samstag, 13.02.2016 - 15:00 Uhr",
-      "competition": "Kreisfreundschaftsspiele",
+      "start_at": "2017-03-05T14:00:00+01:00",
+      "competition": "Kreisoberliga",
+      "home": "Post SV Chemnitz",
+      "guest": "Spvgg. Blau-Weiß Chemnitz02"
+    },
+    {
+      "start_at": "2017-03-12T14:00:00+01:00",
+      "competition": "Kreispokal",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
-      "guest": "SV 1990 Witzschdorf"
+      "guest": "FSV Grün-Weiß Klaffenbach"
     },
     {
-      "start_at": "Samstag, 27.02.2016 - 15:00 Uhr",
-      "competition": "Kreisfreundschaftsspiele",
-      "home": "TV Oberfrohna",
-      "guest": "Spvgg. Blau-Weiß Chemnitz02"
-    },
-    {
-      "start_at": "Sonntag, 06.03.2016 - 14:00 Uhr",
-      "competition": "Kreisoberliga",
-      "home": "VfL Chemnitz",
-      "guest": "Spvgg. Blau-Weiß Chemnitz02"
-    },
-    {
-      "start_at": "Sonntag, 13.03.2016 - 14:00 Uhr",
-      "competition": "Kreisoberliga",
-      "home": "Spvgg. Blau-Weiß Chemnitz02",
-      "guest": "CSV Siegmar"
-    },
-    {
-      "start_at": "Sonntag, 20.03.2016 - 10:30 Uhr",
-      "competition": "Kreisoberliga",
-      "home": "BSC Rapid Chemnitz 2",
-      "guest": "Spvgg. Blau-Weiß Chemnitz02"
-    },
-    {
-      "start_at": "Sonntag, 03.04.2016 - 15:00 Uhr",
-      "competition": "Kreisoberliga",
-      "home": "Spvgg. Blau-Weiß Chemnitz02",
-      "guest": "TSV IFA Chemnitz"
-    },
-    {
-      "start_at": "Samstag, 09.04.2016 - 15:00 Uhr",
-      "competition": "Kreisoberliga",
-      "home": "SG Handwerk Rabenstein 2",
-      "guest": "Spvgg. Blau-Weiß Chemnitz02"
-    },
-    {
-      "start_at": "Sonntag, 24.04.2016 - 15:00 Uhr",
+      "start_at": "2017-03-19T15:00:00+01:00",
       "competition": "Kreisoberliga",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
       "guest": "SV Adorf"
     },
     {
-      "start_at": "Sonntag, 01.05.2016 - 15:00 Uhr",
+      "start_at": "2017-03-26T15:00:00+02:00",
       "competition": "Kreisoberliga",
       "home": "FSV Grün-Weiß Klaffenbach",
+      "guest": "Spvgg. Blau-Weiß Chemnitz02"
+    },
+    {
+      "start_at": "2017-04-02T15:00:00+02:00",
+      "competition": "Kreisoberliga",
+      "home": "Spvgg. Blau-Weiß Chemnitz02",
+      "guest": "SV Eiche Reichenbrand"
+    },
+    {
+      "start_at": "2017-04-09T15:00:00+02:00",
+      "competition": "Kreisoberliga",
+      "home": "USG Chemnitz",
+      "guest": "Spvgg. Blau-Weiß Chemnitz02"
+    },
+    {
+      "start_at": "2017-04-23T15:00:00+02:00",
+      "competition": "Kreisoberliga",
+      "home": "VfL Chemnitz",
+      "guest": "Spvgg. Blau-Weiß Chemnitz02"
+    },
+    {
+      "start_at": "2017-04-30T15:00:00+02:00",
+      "competition": "Kreisoberliga",
+      "home": "Spvgg. Blau-Weiß Chemnitz02",
+      "guest": "SV Viktoria 03 Einsiedel"
+    },
+    {
+      "start_at": "2017-05-07T15:00:00+02:00",
+      "competition": "Kreisoberliga",
+      "home": "FSV Grüna-Mittelbach",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     }
   ]
@@ -95,10 +95,6 @@ Returns something like this:
 ````
 
 "team_name" holds the name of the team to which this list belongs to. You can use it to determine wether a match is a home match or not.
-
-# ToDos
-
-- [ ] convert start_at to ISO8601
 
 # License
 LGPLv3. (You can use it in commercial projects as you like, but improvements/bugfixes must flow back to this lib.)
