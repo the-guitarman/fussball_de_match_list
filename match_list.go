@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"io/ioutil"
 )
 
 type Match struct {
@@ -24,12 +25,20 @@ type MatchList struct {
 func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Query().Get("url")
 
-	doc, err := goquery.NewDocument(url)
-	if err != nil {
-		//log.Fatal(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, err)
-		return
+	var doc *goquery.Document
+	var err error
+	if localUrl(url) {
+		byte_content, _ := ioutil.ReadFile("test.html") //url)
+		string_content := string(byte_content)
+		doc, _ = goquery.NewDocumentFromReader(strings.NewReader(string_content))
+	} else {
+		doc, err = goquery.NewDocument(url)
+		if err != nil {
+			//log.Fatal(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Fprint(w, err)
+			return
+		}
 	}
 
 	var headline string
@@ -68,6 +77,14 @@ func MatchListHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(resp))
+}
+
+func localUrl(url string) bool {
+	ret := false
+	if strings.HasPrefix(url, "file://") {
+		ret = true
+	}
+	return ret
 }
 
 func findTeamName(d *goquery.Document) (n string) {
