@@ -1,15 +1,15 @@
 package main
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 
 	//"fmt"
-	"net/http"
-	"time"
-	"io/ioutil"
 	"encoding/json"
 	"github.com/the-guitarman/fussball_de_match_list/match_list"
+	"io/ioutil"
+	"net/http"
+	"time"
 )
 
 func TestAllRoutes(t *testing.T) {
@@ -49,7 +49,7 @@ func matchListTest(t *testing.T, client *http.Client) {
 	}
 
 	var match_list match_list.MatchList
-    err = json.Unmarshal(body, &match_list)
+	err = json.Unmarshal(body, &match_list)
 	if err != nil {
 		panic(err)
 	}
