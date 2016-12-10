@@ -2,13 +2,17 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/the-guitarman/fussball_de_match_list/match_list"
+	"log"
+	"net/http"
 )
 
 func main() {
+	startServer()
+}
+
+func startServer() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler)
 	r.HandleFunc("/match-list", match_list.MatchListHandler)
