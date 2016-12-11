@@ -97,5 +97,9 @@ Returns something like this:
 
 "team_name" holds the name of the team to which this list belongs to. You can use it to determine wether a match is a home match or not.
 
+# TODOs
+
+- provide url as parameter (`--url <team page url>) return the response and don't start the server in this case
+
 # License
 LGPLv3. (You can use it in commercial projects as you like, but improvements/bugfixes must flow back to this lib.)
