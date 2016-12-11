@@ -13,7 +13,7 @@ import (
 )
 
 func TestAllRoutes(t *testing.T) {
-	go startServer()
+	go startServer([]string{"-s"})
 
 	client := &http.Client{Timeout: 1 * time.Second}
 
