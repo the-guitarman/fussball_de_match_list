@@ -23,4 +23,6 @@ _testmain.go
 *.test
 *.prof
 
+/fussball_de_match_list
+/main
 /test
