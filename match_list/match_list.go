@@ -129,10 +129,8 @@ func findTeamName(d *goquery.Document) (n string) {
 
 func parseDate(date string) string {
 	loc, _ := time.LoadLocation("Europe/Berlin")
-	//errorCheck(err)
 	layout := "Sonntag, 02.01.2006 - 15:04 Uhr"
 	myTime, _ := time.ParseInLocation(layout, date, loc)
-	//errorCheck(err)
 	return myTime.Format("2006-01-02T15:04:05") + timeZone(myTime, loc)
 }
 
@@ -154,26 +152,3 @@ func timeZone(myTime time.Time, loc *time.Location) string {
 	}
 	return timeZone
 }
-
-/*
-func MatchListHandler(w http.ResponseWriter, r *http.Request) {
-	url := r.URL.Query().Get("url")
-	doc := goqueryDocument(url, w);
-
-	matchList := parseMatchList(doc)
-	response := matchListToJson(matchList, w)
-
-	w.Header().Set("charset", "utf-8")
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, response)
-}
-
-func handleError(err error, w http.ResponseWriter) {
-	if err != nil {
-		//log.Fatal(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, err)
-	}
-}
-*/
