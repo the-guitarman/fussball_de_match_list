@@ -2,27 +2,45 @@
 [![Built with Spacemacs](https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg)](http://github.com/syl20bnr/spacemacs)
 
 # fussball.de Match List Parser
+
 This is a microservice which parses a match list of a german soccer team from fussball.de
 
 # Usage
 
-Run the service:
-
-````
-go run *.go
-````
-
-Or compile it and run the executable:
+Compile it and run the executable:
 
 ````
 go build *.go
-./main
+````
+
+Run to get some help:
+
+````
+./main --help
+````
+
+Run with url option:
+
+````
+./main --url http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1516/team-id/011MIF6PMK000000VTVG0001VTR8C1K7#!/section/stage
+````
+
+Or run it in server mode:
+
+````
+./main --serve
 ````
 
 Now you can use it in your browser:
 
 ````
 http://localhost:3333/match-list?url=http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1516/team-id/011MIF6PMK000000VTVG0001VTR8C1K7#!/section/stage
+````
+
+You may use another port:
+
+````
+./main --serve --port 4444
 ````
 
 Returns something like this:
@@ -96,10 +114,6 @@ Returns something like this:
 ````
 
 "team_name" holds the name of the team to which this list belongs to. You can use it to determine wether a match is a home match or not.
-
-# TODOs
-
-- provide url as parameter (`--url <team page url>) return the response and don't start the server in this case
 
 # License
 LGPLv3. (You can use it in commercial projects as you like, but improvements/bugfixes must flow back to this lib.)

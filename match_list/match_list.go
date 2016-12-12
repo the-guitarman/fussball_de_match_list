@@ -2,10 +2,8 @@ package match_list
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"io/ioutil"
-	"net/http"
 	"strings"
 	"time"
 )
@@ -26,47 +24,24 @@ func init() {
 
 }
 
-func MatchListHandler(w http.ResponseWriter, r *http.Request) {
-	url := r.URL.Query().Get("url")
-	doc := goqueryDocument(url, w);
+func GetMatchList(url string) (response string, err error) {
+	doc, err := goqueryDocument(url);
+	if err != nil {
+		return
+	}
 
 	matchList := parseMatchList(doc)
-	response := matchListToJson(matchList, w)
-
-	w.Header().Set("charset", "utf-8")
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, response)
+	response, err = matchListToJson(matchList)
+	return
 }
 
-func goqueryDocument(url string, w http.ResponseWriter) (doc *goquery.Document) {
+func goqueryDocument(url string) (doc *goquery.Document, err error) {
 	if localUrl(url) {
 		filePath := strings.Replace(url, "file://", "", 1)
-		doc, _ = goqueryDocumentFromFile(filePath, w)
+		doc, err = goqueryDocumentFromFile(filePath)
 	} else {
-		doc, _ = goqueryDocumentFromUrl(url, w)
+		doc, err = goqueryDocumentFromUrl(url)
 	}
-	return
-}
-
-func goqueryDocumentFromFile(filePath string, w http.ResponseWriter) (doc *goquery.Document, err error) {
-	fileContent := readFile(filePath, w)
-	stringReader := strings.NewReader(fileContent)
-	doc, err = goquery.NewDocumentFromReader(stringReader)
-	handleError(err, w)
-	return
-}
-
-func readFile(filePath string, w http.ResponseWriter) (fileContent string) {
-	byteContent, err := ioutil.ReadFile(filePath)
-	handleError(err, w)
-	fileContent = string(byteContent)
-	return
-}
-
-func goqueryDocumentFromUrl(url string, w http.ResponseWriter) (doc *goquery.Document, err error) {
-	doc, err = goquery.NewDocument(url)
-	handleError(err, w)
 	return
 }
 
@@ -78,12 +53,29 @@ func localUrl(url string) bool {
 	return ret
 }
 
-func handleError(err error, w http.ResponseWriter) {
+func goqueryDocumentFromFile(filePath string) (doc *goquery.Document, err error) {
+	fileContent, err := readFile(filePath)
 	if err != nil {
-		//log.Fatal(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, err)
+		return
 	}
+	stringReader := strings.NewReader(fileContent)
+	doc, err = goquery.NewDocumentFromReader(stringReader)
+	return
+}
+
+func readFile(filePath string) (fileContent string, err error) {
+	fileContent = ""
+	byteContent, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		return
+	}
+	fileContent = string(byteContent)
+	return
+}
+
+func goqueryDocumentFromUrl(url string) (doc *goquery.Document, err error) {
+	doc, err = goquery.NewDocument(url)
+	return
 }
 
 func parseMatchList(doc *goquery.Document) (matchList MatchList) {
@@ -120,10 +112,14 @@ func parseMatchList(doc *goquery.Document) (matchList MatchList) {
 	return
 }
 
-func matchListToJson(matchList MatchList, w http.ResponseWriter) (string) {
-	response, err := json.MarshalIndent(matchList, "", "  ")
-	handleError(err, w)
-	return string(response)
+func matchListToJson(matchList MatchList) (response string, err error) {
+	response = ""
+	bytes, err := json.MarshalIndent(matchList, "", "  ")
+	if err != nil {
+		return
+	}
+	response = string(bytes)
+	return 
 }
 
 func findTeamName(d *goquery.Document) (n string) {
@@ -158,3 +154,26 @@ func timeZone(myTime time.Time, loc *time.Location) string {
 	}
 	return timeZone
 }
+
+/*
+func MatchListHandler(w http.ResponseWriter, r *http.Request) {
+	url := r.URL.Query().Get("url")
+	doc := goqueryDocument(url, w);
+
+	matchList := parseMatchList(doc)
+	response := matchListToJson(matchList, w)
+
+	w.Header().Set("charset", "utf-8")
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, response)
+}
+
+func handleError(err error, w http.ResponseWriter) {
+	if err != nil {
+		//log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, err)
+	}
+}
+*/

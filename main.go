@@ -11,18 +11,18 @@ import (
 	"strconv"
 )
 
-var Version = "0.2"
+var Version = "0.3"
 var DefaultPort = "3333"
 
 func main() {
 	argsWithoutProg := os.Args[1:]
 
 	if len(argsWithoutProg) == 0 || contains(argsWithoutProg, "-h") || contains(argsWithoutProg, "--help") {
-		fmt.Println("-h, --help                   show this help")
-		fmt.Println("-p <number>, --port <number> port number for the server, -s option is required")
-		fmt.Println("-s, --serve                  start server")
-		fmt.Println("-u <url>, --url <url>        grab and parse a fussball.de team page url and return match list as json")
-		fmt.Println("-v, --version                show the version number")
+		fmt.Println("-h, --help                   Shows help information")
+		fmt.Println("-p <number>, --port <number> Port number for the server, -s option is required")
+		fmt.Println("-s, --serve                  Starts the server mode")
+		fmt.Println("-u <url>, --url <url>        Grabs and parses a fussball.de team page url and returns a match list json")
+		fmt.Println("-v, --version                Show the version number")
 		fmt.Println()
 		return
 	}
@@ -39,7 +39,12 @@ func main() {
 
 	if contains(argsWithoutProg, "-u") || contains(argsWithoutProg, "--url") && len(argsWithoutProg) == 2 {
 		if isUrlValid(argsWithoutProg[1]) {
-			//TODO: get match list
+			response, err := match_list.GetMatchList(argsWithoutProg[1])
+			if err != nil {
+				fmt.Println("Error: " + err.Error())
+			} else {
+				fmt.Println(response);
+			}
 		} else {
 			fmt.Println("URL is invalid: " + argsWithoutProg[1])
 		}
@@ -47,7 +52,7 @@ func main() {
 	}
 
 	if contains(argsWithoutProg, "-v") || contains(argsWithoutProg, "--version") {
-		fmt.Println("Version: " + Version)
+		fmt.Println(os.Args[0] + " v" + Version)
 		return
 	}
 }
@@ -55,7 +60,7 @@ func main() {
 func startServer(argsWithoutProg []string) {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler)
-	r.HandleFunc("/match-list", match_list.MatchListHandler)
+	r.HandleFunc("/match-list", MatchListHandler)
 	http.Handle("/", r)
 
 	port := serverPort(argsWithoutProg)
@@ -63,11 +68,32 @@ func startServer(argsWithoutProg []string) {
 	log.Fatal(http.ListenAndServe(":"+port, r))
 }
 
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, "Usage: GET to <your domain:3333>/match-list?url=<encoded url with matchlist of my club at fussball.de>")
+}
+
+func MatchListHandler(w http.ResponseWriter, r *http.Request) {
+	url := r.URL.Query().Get("url")
+	response, err := match_list.GetMatchList(url)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, err)
+		log.Fatal(err)
+		return
+	}
+
+	w.Header().Set("charset", "utf-8")
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, response)
+}
+
 func serverPort(argsWithoutProg []string) string {
 	result := DefaultPort
 	index := portFlagIndex(argsWithoutProg)
 	if index > -1 {
-		if len(argsWithoutProg) > (index+1) {
+		if len(argsWithoutProg) > (index + 1) {
 			port := argsWithoutProg[(index + 1)]
 			if _, err := strconv.Atoi(port); err == nil {
 				result = port
@@ -87,9 +113,12 @@ func portFlagIndex(argsWithoutProg []string) int {
 	return elementIndex
 }
 
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "Usage: GET to <your domain:3333>/match-list?url=<encoded url with matchlist of my club at fussball.de>")
+func urlFlagIndex(argsWithoutProg []string) int {
+	elementIndex := index(argsWithoutProg, "-u")
+	if elementIndex == -1 {
+		elementIndex = index(argsWithoutProg, "--url")
+	}
+	return elementIndex
 }
 
 func isUrlValid(url string) bool {

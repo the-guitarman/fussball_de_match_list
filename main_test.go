@@ -4,7 +4,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 
-	//"fmt"
 	"encoding/json"
 	"github.com/the-guitarman/fussball_de_match_list/match_list"
 	"io/ioutil"
