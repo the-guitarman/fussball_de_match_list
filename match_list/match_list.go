@@ -2,6 +2,7 @@ package match_list
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"io/ioutil"
 	"strings"
@@ -25,7 +26,7 @@ func init() {
 }
 
 func GetMatchList(url string) (response string, err error) {
-	doc, err := goqueryDocument(url);
+	doc, err := goqueryDocument(url)
 	if err != nil {
 		return
 	}
@@ -87,17 +88,25 @@ func parseMatchList(doc *goquery.Document) (matchList MatchList) {
 	var next_match_time_row_index = 0
 	var next_team_row_index = 2
 
-	lines := doc.Find("#team-matchplan-table tbody tr")
+	lines := doc.Find("#id-team-matchplan-table tbody tr")
 	lines.Each(func(i int, s *goquery.Selection) {
 		if i == next_match_time_row_index { // headline
 			headline = s.Find("td").Text()
 			start_at = strings.Trim(strings.Split(headline, "|")[0], " ")
 			competition = strings.Trim(strings.Split(headline, "|")[1], " ")
+
+			fmt.Println(parseDate(start_at))
+			fmt.Println(competition)
+
 			next_match_time_row_index += 3
 			return
 		}
 
 		if i == next_team_row_index { // team names
+			fmt.Println(s.Find("td.column-club .club-name").First().Text())
+			fmt.Println(s.Find("td.column-club .club-name").Last().Text())
+			fmt.Println("")
+
 			m := Match{
 				Start_at:    parseDate(start_at),
 				Competition: competition,
@@ -119,7 +128,7 @@ func matchListToJson(matchList MatchList) (response string, err error) {
 		return
 	}
 	response = string(bytes)
-	return 
+	return
 }
 
 func findTeamName(d *goquery.Document) (n string) {

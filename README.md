@@ -23,7 +23,7 @@ Run to get some help:
 Run with url option:
 
 ````
-./main --url http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1516/team-id/011MIF6PMK000000VTVG0001VTR8C1K7#!/section/stage
+./main --url http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1718/team-id/011MIF6PMK000000VTVG0001VTR8C1K7
 ````
 
 Or run it in server mode:
@@ -35,7 +35,7 @@ Or run it in server mode:
 Now you can use it in your browser:
 
 ````
-http://localhost:3333/match-list?url=http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1516/team-id/011MIF6PMK000000VTVG0001VTR8C1K7#!/section/stage
+http://localhost:3333/match-list?url=http://www.fussball.de/mannschaft/spvgg-blau-weiss-chemnitz02-spvgg-blau-weiss-chemnitz-02-sachsen/-/saison/1718/team-id/011MIF6PMK000000VTVG0001VTR8C1K7
 ````
 
 You may use another port:
@@ -51,63 +51,63 @@ Returns something like this:
   "team_name": "Spvgg. Blau-Weiß Chemnitz02",
   "matches": [
     {
-      "start_at": "2017-02-26T16:00:00+01:00",
+      "start_at": "2017-07-30T15:00:00+02:00",
       "competition": "Kreisfreundschaftsspiele",
-      "home": "FSV Zschopau/​Krumhermersdorf",
-      "guest": "Spvgg. Blau-Weiß Chemnitz02"
-    },
-    {
-      "start_at": "2017-03-05T14:00:00+01:00",
-      "competition": "Kreisoberliga",
-      "home": "Post SV Chemnitz",
-      "guest": "Spvgg. Blau-Weiß Chemnitz02"
-    },
-    {
-      "start_at": "2017-03-12T14:00:00+01:00",
-      "competition": "Kreispokal",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
-      "guest": "FSV Grün-Weiß Klaffenbach"
+      "guest": "FSV Limbach-Oberfrohna"
     },
     {
-      "start_at": "2017-03-19T15:00:00+01:00",
+      "start_at": "2017-08-06T15:00:00+02:00",
+      "competition": "Sachsen-Pokal",
+      "home": "Spvgg. Blau-Weiß Chemnitz02",
+      "guest": "SV Liebertwolkwitz"
+    },
+    {
+      "start_at": "2017-08-13T15:00:00+02:00",
       "competition": "Kreisoberliga",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
-      "guest": "SV Adorf"
+      "guest": "USG Chemnitz"
     },
     {
-      "start_at": "2017-03-26T15:00:00+02:00",
+      "start_at": "2017-08-20T15:00:00+02:00",
       "competition": "Kreisoberliga",
-      "home": "FSV Grün-Weiß Klaffenbach",
+      "home": "SG Neukirchen/​E.",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
-      "start_at": "2017-04-02T15:00:00+02:00",
+      "start_at": "2017-08-27T15:00:00+02:00",
+      "competition": "Kreisoberliga",
+      "home": "Spvgg. Blau-Weiß Chemnitz02",
+      "guest": "BSC Rapid Chemnitz 2"
+    },
+    {
+      "start_at": "2017-09-10T15:00:00+02:00",
+      "competition": "Kreisoberliga",
+      "home": "VTB Chemnitz",
+      "guest": "Spvgg. Blau-Weiß Chemnitz02"
+    },
+    {
+      "start_at": "2017-09-17T15:00:00+02:00",
       "competition": "Kreisoberliga",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
       "guest": "SV Eiche Reichenbrand"
     },
     {
-      "start_at": "2017-04-09T15:00:00+02:00",
+      "start_at": "2017-09-24T15:00:00+02:00",
       "competition": "Kreisoberliga",
-      "home": "USG Chemnitz",
+      "home": "SV Adorf",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     },
     {
-      "start_at": "2017-04-23T15:00:00+02:00",
-      "competition": "Kreisoberliga",
-      "home": "VfL Chemnitz",
-      "guest": "Spvgg. Blau-Weiß Chemnitz02"
-    },
-    {
-      "start_at": "2017-04-30T15:00:00+02:00",
+      "start_at": "2017-10-01T15:00:00+02:00",
       "competition": "Kreisoberliga",
       "home": "Spvgg. Blau-Weiß Chemnitz02",
-      "guest": "SV Viktoria 03 Einsiedel"
+      "guest": "FSV Grün-Weiß Klaffenbach"
     },
     {
-      "start_at": "2017-05-07T15:00:00+02:00",
+      "start_at": "2017-10-15T15:00:00+02:00",
       "competition": "Kreisoberliga",
-      "home": "FSV Grüna-Mittelbach",
+      "home": "VfL Chemnitz",
       "guest": "Spvgg. Blau-Weiß Chemnitz02"
     }
   ]
