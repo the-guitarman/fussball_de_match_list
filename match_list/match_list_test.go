@@ -27,6 +27,6 @@ func TestGetMatchList(t *testing.T) {
 	assert.Equal(t, "2017-07-30T15:00:00+02:00", match.Start_at)
 	assert.Equal(t, "Kreisfreundschaftsspiele", match.Competition)
 	assert.Equal(t, "TSV Einheit Claußnitz", match.Team_one)
-	assert.Equal(t, "SV Germania Mittweida 2", match.Team_two)
+	assert.Equal(t, "FC Wacker 90 Wittgensdorf", match.Team_two)
 
 }
